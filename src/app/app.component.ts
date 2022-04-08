@@ -1,3 +1,4 @@
+import { JsonPipe } from '@angular/common';
 import { Component } from '@angular/core';
 
 @Component({
@@ -6,5 +7,17 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'readJson';
+  file: string = "";
+
+  selection(select: string) {
+    alert(select);
+  }
+  load(event: any) {
+    if(event.target.files.length) {
+      console.log(event.target.files);
+    }
+    else {
+      console.log("Deu certo não");
+    }
+  }
 }
