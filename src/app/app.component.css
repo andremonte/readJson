@@ -1,3 +1,65 @@
-mat-button-toggle-group {
-    margin-left: 12px;
-  }
+.darkContainer {
+  background-color: #292929;
+  color: white;
+  height: 100vh;
+}
+.lightContainer {
+  background-color: #E5E5E5;
+  color:black;
+  height: 100vh;
+}
+.dark1 {
+background-color:#000000 ;
+}
+.dark2 {
+background-color: #1F1F1F;
+}
+.dark3 {
+  background-color: #121212;
+}
+.light1 {
+background-color: #3700B3;
+}
+.light2 {
+background-color: #6101EE;
+}
+.light3 {
+  background-color: #FFFFFF;
+}
+.w-auto {
+  max-width: fit-content;
+}
+
+.darkMode {
+  color: white;
+}
+
+.lightMode {
+  color: black;
+}
+
+.botao {
+  background-color: transparent;
+  color: white !important;
+  border: none;
+  font-family: 'Roboto', sans-serif;
+  font-weight: 500;
+  size: 14px;
+  line-height: 36px;
+  border-radius: 3px;
+}
+.botao:hover {
+  background-color: rgba(0,0,0,0.03);
+  margin: 1px;
+}
+.example-ripple-container {
+  cursor: pointer;
+  text-align: center;
+
+  user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+
+  -webkit-user-drag: none;
+  -webkit-tap-highlight-color: transparent;
+}

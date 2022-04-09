@@ -1,4 +1,3 @@
-import { JsonPipe } from '@angular/common';
 import { Component } from '@angular/core';
 
 @Component({
@@ -7,17 +6,29 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  file: string = "";
+  obj: any;
+  dark: boolean = false;
+  homi: any; //string
+  loadType: string = "";
 
   selection(select: string) {
-    alert(select);
+    this.loadType = select;
   }
-  load(event: any) {
-    if(event.target.files.length) {
-      console.log(event.target.files);
-    }
-    else {
-      console.log("Deu certo não");
-    }
+
+  loadFile(event: any) {
+    const file = event.target.files[0];
+    const reader = new FileReader();
+    reader.onload = ((evt)=>{
+      this.homi = evt.target?.result;
+      this.obj = JSON.parse(this.homi);
+    })
+    reader.readAsText(file);
+  }
+
+  chgmode() {
+    this.dark = !this.dark;
+  }
+  getButtonMode():string {
+    return this.dark? "Ligh theme" : "Dark theme";
   }
 }

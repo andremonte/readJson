@@ -1,14 +1,20 @@
-<div class="container-fluid">
-  <div class="row">
-    <h1>Please add the file</h1>
-    <mat-button-toggle-group #group="matButtonToggleGroup" style="max-width: fit-content;" name="fontStyle" aria-label="Font Style" (click)="selection(group.value)">
+<div class="container-fluid p-5" [ngClass]="{'darkContainer': dark, 'lightContainer': !dark}">
+<div [ngClass]="{'dark2': dark, 'light2': !dark}" class="text-white">
+  <nav [ngClass]="{'dark1': dark, 'light1': !dark}" class="text-white">
+    <h1>dddjjjj</h1>
+  </nav>
+  <div class="row justify-content-between mx-3">
+    <input class="form-control" class="w-auto my-auto" type="file" (change)="loadFile($event)" size="20">
+    <mat-button-toggle-group #group="matButtonToggleGroup" class="w-auto px-0" style="background-color: #202020;" name="fontStyle" aria-label="Font Style" (click)="selection(group.value)">
       <mat-button-toggle value="test">Test</mat-button-toggle>
-      <mat-button-toggle value="candi">Candidate</mat-button-toggle>
+      <mat-button-toggle value="candidate">Candidate</mat-button-toggle>
       <mat-button-toggle value="both">Both</mat-button-toggle>
     </mat-button-toggle-group>
+  <button class="w-auto botao text-black example-ripple-container" matRipple (click)="chgmode()">{{ getButtonMode() }}</button>
   </div>
-  <div class="row py-2">
-    <input class="form-control" type="file" mat-input (change)="load($event)">
-    <button mat-button-flat>Load</button>
+  </div>
+  <div [ngClass]="{'dark3': dark, 'light3': !dark}">
+    <h1 class="text-center py-3">{{ loadType }}</h1>
+    <pre>{{ obj | json}}</pre>
   </div>
 </div>
