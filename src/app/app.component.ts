@@ -10,12 +10,14 @@ export class AppComponent {
   dark: boolean = false;
   homi: any; //string
   loadType: string = "";
-
+  filesss: any;
+  
   selection(select: string) {
     this.loadType = select;
   }
 
   loadFile(event: any) {
+    this.filesss = event.target.files[0];
     const file = event.target.files[0];
     const reader = new FileReader();
     reader.onload = ((evt)=>{

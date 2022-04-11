@@ -1,8 +1,9 @@
 <div class="container-fluid p-5" [ngClass]="{ darkContainer: dark, lightContainer: !dark }">
   <div [ngClass]="{ dark1: dark, light1: !dark }" class="text-white p-2 brt">
     <span class="h4">HomeBridge Youth Society</span>
+    <button class="float-end botao text-black my-auto example-ripple-container" matRipple (click)="chgmode()">{{ getButtonMode() }}</button>
   </div>
-  <div [ngClass]="{ dark2: dark, light2: !dark }" class="text-white p-3 brb">
+  <div [ngClass]="{ dark2: dark, light2: !dark }" class="text-white p-4 brb">
     <div class="row justify-content-between mx-3">
       <span>What do you want to load?</span>
       <mat-button-toggle-group  #group="matButtonToggleGroup" class="w-auto px-0" name="fontStyle" aria-label="Font Style" (click)="selection(group.value)">
@@ -10,13 +11,32 @@
         <mat-button-toggle value="Candidate">Candidate</mat-button-toggle>
         <mat-button-toggle value="Both">Both</mat-button-toggle>
       </mat-button-toggle-group>
-      <button class="w-auto botao text-black example-ripple-container" matRipple (click)="chgmode()">{{ getButtonMode() }}</button>
     </div>
-    <div class="droparea" >
-      <span class="text-center">Drop file here or click to upload</span>
-      <input type="file" accept="text/plain" (change)="loadFile($event)" size="20"/>
+    <div class="droparea">
+      <label for="file-input" class="dropfile row">
+        <span class="text-center my-auto h5">Drop file here or click to upload</span>
+        <mat-icon class="material-icons-outlined mx-auto upload-icon p-0">file_upload</mat-icon>
+      </label>
+      <input type="file" id="file-input" accept="text/plain" class="d-none" (change)="loadFile($event)" size="20"/>
+    </div>
+    
+    <div class="d-block pt-3 text-center w-100">
+      <div class="d-block">
+        <mat-icon class="material-icons-outlined file-icon">description</mat-icon>
+        <span class="ms-2">fasdf 17.99kb</span>
+      </div>
+      <div class="align-w-text">17.99Kb</div>
+    </div>
+    <div class="justify-content-center d-flex pt-3" *ngIf="obj">
+      <mat-icon class="material-icons-outlined me-4" style="font-size: 45px">description</mat-icon>
+      <div class="d-block">
+        <span class="">{{ filesss.name }}</span>
+        <br>
+        <small class="">{{ filesss.size | number: '1.0-0' }} Kb</small>
+      </div>
     </div>
   </div>
+  <div *ngIf="!obj && !loadType"> I am posting some content here</div>
   <div *ngIf="obj && loadType" [ngClass]="{ dark3: dark, light3: !dark }">
     <h1 class="text-center py-3">{{ loadType }}</h1>
     <pre>{{ obj | json }}</pre>
