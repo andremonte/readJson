@@ -23,16 +23,16 @@
     <div class="d-block pt-3 text-center w-100">
       <div class="d-block">
         <mat-icon class="material-icons-outlined file-icon">description</mat-icon>
-        <span class="ms-2">fasdf 17.99kb</span>
+        <span class="ms-2">fasdf</span>
       </div>
-      <div class="align-w-text">17.99Kb</div>
+      <div class="align-w-text">{{ 15522 | number: '1.0-0' }} kb</div>
     </div>
     <div class="justify-content-center d-flex pt-3" *ngIf="obj">
       <mat-icon class="material-icons-outlined me-4" style="font-size: 45px">description</mat-icon>
       <div class="d-block">
-        <span class="">{{ filesss.name }}</span>
+        <span class="">{{ file.name }}</span>
         <br>
-        <small class="">{{ filesss.size | number: '1.0-0' }} Kb</small>
+        <small class="">{{ file.size | number: '1.0-0' }} Kb</small>
       </div>
     </div>
   </div>

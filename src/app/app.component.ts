@@ -8,23 +8,20 @@ import { Component } from '@angular/core';
 export class AppComponent {
   obj: any;
   dark: boolean = false;
-  homi: any; //string
   loadType: string = "";
-  filesss: any;
-  
+  file: any;
+
   selection(select: string) {
     this.loadType = select;
   }
 
   loadFile(event: any) {
-    this.filesss = event.target.files[0];
-    const file = event.target.files[0];
+    this.file = event.target.files[0];
     const reader = new FileReader();
     reader.onload = ((evt)=>{
-      this.homi = evt.target?.result;
-      this.obj = JSON.parse(this.homi);
+      this.obj = JSON.parse(<string>evt.target?.result);
     })
-    reader.readAsText(file);
+    reader.readAsText(event.target.files[0]);
   }
 
   chgmode() {

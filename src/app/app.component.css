@@ -55,10 +55,11 @@ background-color: #6101EE;
   size: 14px;
   line-height: 36px;
   border-radius: 3px;
+  margin:1px;
 }
 .botao:hover {
-  background-color: rgba(0,0,0,0.03);
-  margin: 1px;
+  background-color: rgba(0,0,0,0.1);
+
 }
 .example-ripple-container {
   cursor: pointer;
