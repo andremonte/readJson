@@ -1,20 +1,24 @@
-<div class="container-fluid p-5" [ngClass]="{'darkContainer': dark, 'lightContainer': !dark}">
-<div [ngClass]="{'dark2': dark, 'light2': !dark}" class="text-white">
-  <nav [ngClass]="{'dark1': dark, 'light1': !dark}" class="text-white">
-    <h1>dddjjjj</h1>
-  </nav>
-  <div class="row justify-content-between mx-3">
-    <input class="form-control" class="w-auto my-auto" type="file" (change)="loadFile($event)" size="20">
-    <mat-button-toggle-group #group="matButtonToggleGroup" class="w-auto px-0" style="background-color: #202020;" name="fontStyle" aria-label="Font Style" (click)="selection(group.value)">
-      <mat-button-toggle value="test">Test</mat-button-toggle>
-      <mat-button-toggle value="candidate">Candidate</mat-button-toggle>
-      <mat-button-toggle value="both">Both</mat-button-toggle>
-    </mat-button-toggle-group>
-  <button class="w-auto botao text-black example-ripple-container" matRipple (click)="chgmode()">{{ getButtonMode() }}</button>
+<div class="container-fluid p-5" [ngClass]="{ darkContainer: dark, lightContainer: !dark }">
+  <div [ngClass]="{ dark1: dark, light1: !dark }" class="text-white p-2 brt">
+    <span class="h4">HomeBridge Youth Society</span>
   </div>
+  <div [ngClass]="{ dark2: dark, light2: !dark }" class="text-white p-3 brb">
+    <div class="row justify-content-between mx-3">
+      <span>What do you want to load?</span>
+      <mat-button-toggle-group  #group="matButtonToggleGroup" class="w-auto px-0" name="fontStyle" aria-label="Font Style" (click)="selection(group.value)">
+        <mat-button-toggle value="Test">Test</mat-button-toggle>
+        <mat-button-toggle value="Candidate">Candidate</mat-button-toggle>
+        <mat-button-toggle value="Both">Both</mat-button-toggle>
+      </mat-button-toggle-group>
+      <button class="w-auto botao text-black example-ripple-container" matRipple (click)="chgmode()">{{ getButtonMode() }}</button>
+    </div>
+    <div class="droparea" >
+      <span class="text-center">Drop file here or click to upload</span>
+      <input type="file" accept="text/plain" (change)="loadFile($event)" size="20"/>
+    </div>
   </div>
-  <div [ngClass]="{'dark3': dark, 'light3': !dark}">
+  <div *ngIf="obj && loadType" [ngClass]="{ dark3: dark, light3: !dark }">
     <h1 class="text-center py-3">{{ loadType }}</h1>
-    <pre>{{ obj | json}}</pre>
+    <pre>{{ obj | json }}</pre>
   </div>
 </div>

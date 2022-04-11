@@ -31,4 +31,5 @@ export class AppComponent {
   getButtonMode():string {
     return this.dark? "Ligh theme" : "Dark theme";
   }
+
 }
