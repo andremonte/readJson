@@ -17,28 +17,109 @@
         <span class="text-center my-auto h5">Drop file here or click to upload</span>
         <mat-icon class="material-icons-outlined mx-auto upload-icon p-0">file_upload</mat-icon>
       </label>
-      <input type="file" id="file-input" accept="text/plain" class="d-none" (change)="loadFile($event)" size="20"/>
+      <input type="file" id="file-input" accept="text/plain" multiple="multiple" class="d-none" (change)="loadFile($event)" size="20"/>
     </div>
-    
-    <div class="d-block pt-3 text-center w-100">
-      <div class="d-block">
-        <mat-icon class="material-icons-outlined file-icon">description</mat-icon>
-        <span class="ms-2">fasdf</span>
-      </div>
-      <div class="align-w-text">{{ 15522 | number: '1.0-0' }} kb</div>
-    </div>
-    <div class="justify-content-center d-flex pt-3" *ngIf="obj">
-      <mat-icon class="material-icons-outlined me-4" style="font-size: 45px">description</mat-icon>
-      <div class="d-block">
-        <span class="">{{ file.name }}</span>
-        <br>
-        <small class="">{{ file.size | number: '1.0-0' }} Kb</small>
+    <div class="w-30 mx-auto pt-3">
+        <div class="d-block card text-black my-1" *ngIf="file">
+          <div class="d-flex py-2">
+            <mat-icon class="material-icons-outlined me-4 file-icon" [ngStyle]="{'color': !dark ? '#620BEE' : '#BB86FC'}">insert_drive_file</mat-icon>
+            <div class="d-block">
+              <span>{{ file.name }}</span>
+              <br>
+              <small style="color: #828080">{{ file.size }}</small>
+              <br>
+            </div>
+          </div>
+          <div class="progress mx-2 mb-1" *ngIf="fprogress">
+            <div class="progress-bar" role="progressbar" [ngStyle]="{'width': fprogress + '%' }" aria-valuenow="fprogress" aria-valuemin="0" aria-valuemax="100">{{ fprogress }}%</div>
+          </div>
+        </div>
+      <div class="d-block card text-black my-1" *ngIf="file2">
+        <div class="d-flex py-2">
+          <mat-icon class="material-icons-outlined me-4 file-icon" [ngStyle]="{'color': !dark ? '#620BEE' : '#BB86FC'}">insert_drive_file</mat-icon>
+          <div class="d-block">
+            <span class="">{{file2.name}}</span>
+            <br>
+            <small style="color: #828080">25524Kb</small>
+          </div>
+        </div>
+        <div class="progress mx-2 mb-1" *ngIf="fprogress2">
+          <div class="progress-bar" role="progressbar" [ngStyle]="{'width': fprogress2 + '%' }" aria-valuenow="fprogress2" aria-valuemin="0" aria-valuemax="100">{{ fprogress2 }}%</div>
+        </div>
       </div>
     </div>
   </div>
-  <div *ngIf="!obj && !loadType"> I am posting some content here</div>
-  <div *ngIf="obj && loadType" [ngClass]="{ dark3: dark, light3: !dark }">
-    <h1 class="text-center py-3">{{ loadType }}</h1>
+  
+  <div *ngIf="obj && loadType" [ngClass]="{ dark3: dark, light3: !dark }" class="p-5">
+    <h1 class="text-center py-3" style="color: #2485E2; font-size: 50px;">{{ loadType | uppercase }}</h1>
+    <div class="row text-center">
+      <div class="col me-2">
+        <div class="card mat-elevation-z8">
+            <span>Candidate Details</span>
+            <mat-icon class="material-icons-outlined d-block mx-auto">face</mat-icon>
+            <h1 class="me-auto">name: {{ obj.fname }}</h1>
+        </div>
+      </div>
+      <div class="col ms-2">
+        <div class="card mat-elevation-z8">
+          <span>Knoledge Assessment details</span>
+        </div>
+      </div>
+    </div>
+    <hr>
+    <div *ngFor="let q of obj.test?.answerKey">
+      
+    </div>
+<!--     <form class="mt-1">
+      <ng-container>
+        <div *ngIf="let quest of obj.test?.answerKey">
+          <div *ngIf="obj.type == 'objective'" class="my-auto">
+            <div *ngIf="obj.single_multi == 'multi'" class="my-auto">
+
+              <div class="row ml-2 my-2 alternatives custom-control custom-checkbox">
+                <input type="checkbox" class="custom-control-input d-inline d-flex my-auto">
+                <label class="custom-control-label form-check-label my-auto ml-1"></label>
+              </div>
+
+
+            </div>
+            <div *ngIf="obj.single_multi == 'single'" class="my-auto">
+
+              <div class="row ml-2 my-2 alternatives custom-control custom-radio">
+                <input type="radio" class="d-inline d-flex my-auto custom-control-input">
+                <label class="ml-1 pt-1 custom-control-label my-auto"></label>
+              </div>
+
+            </div>
+          </div>
+          <div *ngIf="obj.type == 'trueFalse'" class="d-block d-flex my-auto">
+            <div class="d-inline d-flex py-1 ml-2 custom-control custom-radio">
+              <input type="radio" class="my-auto custom-control-input">
+              <label class="my-auto ml-1 alternatives custom-control-label"></label>
+            </div>
+          </div>
+        </div>
+
+        <div *ngIf="obj.type == 'subjective'" class="discurs d-inline d-flex my-auto">
+          <textarea #userAnswer
+                    rows="5"
+                    class="w-50 ml-2 subje">
+          </textarea>
+            <div  class="container ml-md-3 ml-0 my-auto col center-when-small">
+              <label class="d-flex h4 question-number mt-3 mt-md-0 center-when-small">Points</label>
+              <div class="d-flex center-when-small" style="font-size: 22px;">
+                  <i class="fas fa-minus mr-2 my-auto"></i>
+                  <span class="my-auto">  </span>
+                  <i class="pointer over fas fa-plus ml-2 my-auto"></i>
+                  <br>
+                  <button mat-flat-button>save</button>
+              </div>
+          </div>
+        </div>
+      </ng-container>
+
+      <hr class="w-100">
+    </form> -->
     <pre>{{ obj | json }}</pre>
   </div>
 </div>

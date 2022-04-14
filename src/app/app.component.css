@@ -17,6 +17,9 @@ background-color: #1F1F1F;
 .dark3 {
   background-color: #121212;
 }
+.dark4 {
+  background-color: #BB86FC;
+}
 .light1 {
 background-color: #3700B3;
 }
@@ -25,6 +28,9 @@ background-color: #6101EE;
 }
 .light3 {
   background-color: #FFFFFF;
+}
+.light4 {
+  color: #620BEE;
 }
 .w-auto {
   max-width: fit-content;
@@ -102,9 +108,14 @@ background-color: #6101EE;
   font-size: 50px;
 }
 
-.file-icon {
-  vertical-align: bottom;
-}
 .align-w-text {
   margin-left: 33px;
+}
+
+.file-icon {
+  line-height: 35px;
+  font-size: 45px
+}
+.w-30 {
+  width: 500px;
 }
