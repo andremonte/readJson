@@ -26,7 +26,7 @@
             <div class="d-block">
               <span>{{ file.name }}</span>
               <br>
-              <small style="color: #828080">{{ file.size }}</small>
+              <small style="color: #828080">{{ file.size / 1000 | number: '1.0-0' }} KB</small>
               <br>
             </div>
           </div>
@@ -40,7 +40,7 @@
           <div class="d-block">
             <span class="">{{file2.name}}</span>
             <br>
-            <small style="color: #828080">25524Kb</small>
+            <small style="color: #828080">{{ file2.size / 1000 | number: '1.0-0'}} KB</small>
           </div>
         </div>
         <div class="progress mx-2 mb-1" *ngIf="fprogress2">
