@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { MatSnackBar } from '@angular/material/snack-bar';
+
 
 @Component({
   selector: 'app-root',
@@ -6,14 +8,15 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
+  constructor(private snack: MatSnackBar){}
+
   obj: any;
   dark: boolean = false;
   loadType: string = "";
   file: any;
-  file2: any;
   texto: string = "";
   fprogress: number = 0;
-  fprogress2: number = 0;
+  questTypes = {mult: 0, short: 0, tf: 0};
 
   selection(select: string) {
     this.loadType = select;
@@ -22,33 +25,14 @@ export class AppComponent {
   loadFile(event: any) {
     this.obj = null;
     //sem arquivo
-    if(!event.target.files) {
+    if(!event.target.files || event.target.files.length >= 2) {
+      this.openSnackbar("Single File", "Make sure you only upload a single file", 3000, true);
+    }
+
+    //só um arquivo
+    if(event.target.files[0].type != "text/plain") {
       return
     }
-    //mais de um arquivo
-    if(event.target.files.length >= 2) {
-      this.file2 = event.target.files[1];
-      const reader2 = new FileReader();
-      reader2.onprogress = ((evt) => {
-        this.fprogress2 = (Math.round(evt.loaded / evt.total * 100));
-      });
-      reader2.onload = ((evt) => {
-        //valido
-        if(evt.target?.result?.toString().charAt(0) == '{' || evt.target?.result?.toString().charAt(0) == '[') {
-          reader.onloadend = (async(evt)=> {
-            this.obj = JSON.parse(await <any>evt.target?.result);
-          })
-        }
-        //not é válido
-        else {
-          alert("File not supported");
-          location.reload();
-          return;
-        }
-      })
-      reader2.readAsText(this.file2);
-    }
-    //só um arquivo
     this.file = event.target.files[0];
     const reader = new FileReader();
     
@@ -60,27 +44,32 @@ export class AppComponent {
 
     //Check se o arquivo é válido (JSON)
     reader.onload = ((evt) => {
+      this.questTypes = {mult: 0, short: 0, tf: 0};
       //valido
       if(evt.target?.result?.toString().charAt(0) == '{' || evt.target?.result?.toString().charAt(0) == '[') {
         reader.onloadend = (async(evt)=> {
           this.obj = JSON.parse(await <any>evt.target?.result);
+          this.obj.questions.forEach((t:any) => {
+            if(t.type == "objective") {
+              this.questTypes.mult += 1;
+            }
+            if(t.type == "trueFalse") {
+              this.questTypes.tf += 1;
+            }
+            if(t.type == "subjective") {
+              this.questTypes.short += 1;
+            }
+          });
         })
       }
       //not é válido
       else {
-        alert("File not supported");
-        location.reload();
-        return;
+        this.openSnackbar("Answers not find", "Make sure you are uploading the correct file", 3000, true);
       }
     })
-
     reader.readAsText(this.file);
-/*     reader.onload = ((evt)=>{
-      this.obj = JSON.parse(<any>evt.target?.result);
-    })
-    reader.readAsText(this.file); */
-    
   }
+
 
   chgmode() {
     this.dark = !this.dark;
@@ -89,4 +78,13 @@ export class AppComponent {
     return this.dark? "Ligh theme" : "Dark theme";
   }
 
+  openSnackbar(label:string, msg: string, time: number, reload: boolean) {
+    this.snack.open(msg, label, {duration: time})
+    if(reload) {
+      setTimeout(() => {
+        location.reload();
+      }, 3500);
+      return
+    }
+  }
 }

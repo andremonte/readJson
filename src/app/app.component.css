@@ -65,7 +65,6 @@ background-color: #6101EE;
 }
 .botao:hover {
   background-color: rgba(0,0,0,0.1);
-
 }
 .example-ripple-container {
   cursor: pointer;
@@ -118,4 +117,28 @@ background-color: #6101EE;
 }
 .w-30 {
   width: 500px;
+}
+.title {
+  color: #3706B3;
+  font-size: 50px;
+  font-weight: 500;
+}
+.round-bottom {
+  border-bottom-left-radius: 5px;
+  border-bottom-right-radius: 5px;
+}
+.card-title {
+  font-size: 20px;
+  line-height: inherit;
+}
+.user-properties {
+  font-size: 16px;
+  line-height: 24px;
+  color: #EADFFC;
+}
+.w {
+  color: white;
+}
+.details-card {
+  max-height: 380px;
 }
