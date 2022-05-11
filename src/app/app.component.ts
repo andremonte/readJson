@@ -13,7 +13,7 @@ export class AppComponent {
   obj: any;
   dark: boolean = false;
   loadType: string = "";
-  file: any;
+  file: any = null;
   texto: string = "";
   fprogress: number = 0;
   questTypes = {mult: 0, short: 0, tf: 0};

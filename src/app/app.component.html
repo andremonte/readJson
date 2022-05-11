@@ -15,7 +15,7 @@
     <div class="droparea">
       <label for="file-input" class="dropfile row">
         <span class="text-center my-auto h5">Drop file here or click to upload</span>
-        <mat-icon class="material-icons-outlined mx-auto upload-icon p-0">file_upload</mat-icon>
+        <mat-icon class="material-icons-outlined mx-auto upload-icon p-0 pe-5">file_upload</mat-icon>
       </label>
       <input type="file" id="file-input" accept="text/plain" class="d-none" (change)="loadFile($event)" size="20"/>
     </div>
@@ -68,33 +68,12 @@
           </div>
         </div>
       </div>
-<!--       <div class="card mat-elevation-z8" style="width: 40rem; background-color: #E5E5E5; color: black">
-        <div class="card-header card-title py-2" style="background-color: #d4d3d3">Knoledge of Assessment Details</div>
-        <div class="card-body">
-          <div class="user-properties">
-            <p class="card-text my-0">Name: {{ obj.test.name }}</p>
-            <p class="card-text my-0">Id: {{ obj.test.id }}</p>
-            <p class="card-text my-0">Survey Date: {{ obj.surveyDate | date: 'short' }}</p>
-            <p class="card-text my-0">Access Code: {{ obj.testCode }}</p>
-            <p class="card-text my-0">Worth: {{ obj.test.worth }}</p>
-            <p class="card-text my-0">Number of Questions: {{ obj.test.answerKey.length }}</p>
-            <p class="card-text my-0">Multiple-Choice: {{ questTypes.mult }}</p>
-            <p class="card-text my-0">Short Answer: {{ questTypes.short }}</p>
-            <p class="card-text my-0">True-False: {{ questTypes.tf }}</p>
-            <p class="card-text my-0">Access Code: {{ obj.testCode }}</p>
-          </div>
-          <a href="#knoledgeAssessment" class="btn btn-primary mt-2 ms-auto">See Details</a>
-        </div>
-      </div> -->
     </div>
     <div *ngIf="loadType == 'Candidate'">
       2
     </div>
     <div *ngIf="loadType == 'Both'">
       2
-    </div>
-    <div id="knoledgeAssessment">
-      <h1>Opa</h1>
     </div>
     <pre>{{ obj | json }}</pre>
   </div>
