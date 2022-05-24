@@ -85,6 +85,7 @@ background-color: #6101EE;
   margin-right: auto;
   height: 30vh;
   cursor: pointer;
+  background-color: #5e0ae6;
 }
 
 .droparea:hover,
@@ -135,10 +136,48 @@ background-color: #6101EE;
   font-size: 16px;
   line-height: 24px;
   color: #EADFFC;
+  padding-left: 8px;
+  padding-right: 8px;
 }
 .w {
   color: white;
 }
 .details-card {
   max-height: 380px;
+}
+
+.correct-alt {
+  margin-top: auto;
+  margin-bottom: auto;
+  padding-top: auto;
+  padding-bottom: auto;
+}
+.ajus-pad {/* Not being used*/
+  padding-left: 0;
+}
+
+.a {
+  font-size: 20px !important;
+  width: 20px;
+  height: 20px;
+}
+.underline {
+  text-decoration: underline;
+}
+/* .form-check-input:disabled~.form-check-label, .form-check-input[disabled]~.form-check-label {
+  opacity: inherit;
+} */
+
+.blue-card {
+  background-color: #2d009e;
+  color: white;
+}
+.hundred {
+  background-color: rgba(180, 242, 197, 0.705);
+}
+.fitfy {
+  background-color: grey;
+}
+.zero {
+  background-color: red;
 }

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectorRef, AfterContentChecked } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
 
@@ -7,9 +7,9 @@ import { MatSnackBar } from '@angular/material/snack-bar';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent {
-  constructor(private snack: MatSnackBar){}
 
+export class AppComponent {
+  constructor(private snack: MatSnackBar, private cdref: ChangeDetectorRef){}
   obj: any;
   dark: boolean = false;
   loadType: string = "";
@@ -17,7 +17,13 @@ export class AppComponent {
   texto: string = "";
   fprogress: number = 0;
   questTypes = {mult: 0, short: 0, tf: 0};
+  userAn: any = null;
+  primeiro: any;
+  segundo: any;
 
+  ngOnInti() {
+    
+  }
   selection(select: string) {
     this.loadType = select;
   }
@@ -49,6 +55,8 @@ export class AppComponent {
       if(evt.target?.result?.toString().charAt(0) == '{' || evt.target?.result?.toString().charAt(0) == '[') {
         reader.onloadend = (async(evt)=> {
           this.obj = JSON.parse(await <any>evt.target?.result);
+          this.primeiro = this.obj.questions;
+          this.segundo = this.obj.general.test.userAnswers;
           this.obj.questions.forEach((t:any) => {
             if(t.type == "objective") {
               this.questTypes.mult += 1;
@@ -60,6 +68,7 @@ export class AppComponent {
               this.questTypes.short += 1;
             }
           });
+          
         })
       }
       //not é válido
@@ -68,6 +77,7 @@ export class AppComponent {
       }
     })
     reader.readAsText(this.file);
+ 
   }
 
 
@@ -86,5 +96,29 @@ export class AppComponent {
       }, 3500);
       return
     }
+  }
+
+  checkRadioUser(i: number, alt_: any) {
+    if(this.loadType == 'Test') {
+      return
+    }
+    return this.obj.general.test.userAnswers[i].answers[0].text == alt_.text ? true : false;
+  }
+  checkboxUser(id_: number, alt_: any) {
+    let ans = false;
+    if(this.loadType == 'Test') {
+      return
+    }
+    const quest = this.obj.general.test.userAnswers.filter((q: any)=> q.id == id_);
+    for(let i = 0; i < quest[0].answers.length; i++) {
+      if(quest[0].answers[i].text == alt_.text) {
+        ans = true;
+        break;
+      }
+      else {
+        ans = false;
+      }
+    }
+    return ans;
   }
 }

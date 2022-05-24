@@ -36,11 +36,18 @@
         </div>
     </div>
   </div>
+<!--   <div class="container">
+    <div class="row">
+      <div class="col-6"><pre>{{ primeiro | json }}</pre></div>
+      <div class="col-6"><pre>{{ segundo | json }}</pre></div>
+  </div>
+  </div> -->
+   
   <!-- *ngIf="obj && loadType" -->
   <div *ngIf="obj && loadType" [ngClass]="{ dark3: dark, light3: !dark }" class="p-5 mat-elevation-z8 round-bottom">
     <h1 class="text-center py-3 title">{{ loadType }}</h1>
-    <div class="row" *ngIf="loadType == 'Test'">
-      <div class="card details-card mat-elevation-z8 col-xs-12 col-sm-12 col-md-5" style="background-color: #3706B3; color: white">
+    <div class="row" [ngClass]="{'justify-content-around': loadType == 'Both' }">
+      <div *ngIf="loadType == 'Test' || loadType == 'Both'" class="card details-card mat-elevation-z8 col-xs-12 col-sm-12 col-md-5 px-0" style="background-color: #3706B3; color: white">
         <div class="card-header card-title py-2" style="background-color: #2d009e;">Knoledge of Assessment Details</div>
         <div class="card-body">
           <div class="user-properties">
@@ -55,28 +62,51 @@
             <p class="card-text my-0">True-False: <span class="w">{{ questTypes.tf }}</span></p>
             <p class="card-text my-0">Access Code: <span class="w">{{ obj.general.testCode }}</span></p>
           </div>
-          <a href="#knoledgeAssessment" class="btn btn-primary mt-2 float-end">See Details</a>
+          <!-- <a href="#knoledgeAssessment" class="btn btn-primary mt-2 float-end" style="padding-right: 8px">See Details</a> -->
         </div>
       </div>
-      <div class="card mat-elevation-z8 col">
-        <div class="card-header card-title py-2" style="background-color: #EADFFC; color: white;">{{ obj.general.test.name }}</div>
-        <div class="card-body" *ngFor="let q of obj.questions; let i = index">
-          <p class="card-text">{{ i + 1 }} - {{ q.title }}</p>
-          <div *ngFor="let a of q.alternatives;">
-            <input type="radio" [checked]="a.correct">
-            <label for="" class="ms-2">{{ a.letter }} {{ a.text }}</label>
+      
+      <div *ngIf="loadType == 'Candidate' || loadType == 'Both'" class="card details-card mat-elevation-z8 col-xs-12 col-sm-12 col-md-5 px-0" style="background-color: #3706B3; color: white">
+        <div class="card-header card-title py-2 blue-card">Candidate Details</div>
+        <div class="card-body">
+          <div class="user-properties">
+            <p class="card-text my-0">Name: <span class="w">{{ obj.general.fname }} {{ obj.general.lname }}</span></p>
+            <p class="card-text my-0">Email: <span class="w">{{ obj.general.email }}</span></p>
+            <p class="card-text my-0">Survey Date: <span class="w">{{ obj.general.surveyDate | date: 'short' }}</span></p>
+            <p class="card-text my-0">Facility: <span class="w">{{ obj.general.facility }}</span></p>
+            <p class="card-text my-0">Worth: <span class="w">{{ obj.general.test.worth }}</span></p>
+            <p class="card-text my-0">Scored: <span class="w">{{ obj.general.test.scored }} out of {{ obj.general.test.worth }}</span></p>
+            <p class="card-text my-0">Duration: <span class="w">{{ obj.general.test.duration | date: 'mm:ss' }}</span></p>
+            <p class="card-text my-0">Union: <span class="w">{{ obj.general.union }}</span></p>
+            <p class="card-text my-0">Access Code: <span class="w">{{ obj.general.testCode }}</span></p>
+          </div>
+         <!--  <a href="#knoledgeAssessment" class="btn btn-primary mt-2 float-end" style="padding-right: 8px">See Details</a> -->
+        </div>
+      </div>
+
+      <div class="card mat-elevation-z8 col px-0" [ngClass]="{'col-12': loadType == 'Both', 'mt-4': loadType == 'Both'}">
+        <div class="card-header card-title py-2 blue-card">{{ obj.general.test.name }}</div>
+        <div class="card-body" *ngFor="let q of obj.questions; let i = index;">
+          <p class="card-text fs-5">{{ i + 1 }} - {{ q.title }}</p>
+          <div class="form-check d-flex align-items-center my-auto" [ngClass]="{'ajus-pa': a.correct}" *ngFor="let a of q.alternatives;">
+           <!--OBJECTIVE -- True False-->
+            <div *ngIf="q.type != 'subjective'">
+            <!--RADIO-->
+             <div *ngIf="q.single_multi == 'single'">
+              <mat-icon *ngIf="a.correct && loadType != 'Candidate'" class="a material-symbols-outlined text-success my-auto float-end">verified</mat-icon>
+              <input type="radio" class="form-check-input" [disabled]="!a.correct" [checked]="checkRadioUser(i, a)">
+              <label for="" class="py-1 form-check-label ms-1 my-auto">{{ a.letter }} {{ a.text }} {{ checkRadioUser(i, a) }}</label>
+            </div>
+            <!--CHECKBOX-->
+            <div *ngIf="q.single_multi == 'multi'">
+              <mat-icon *ngIf="a.correct && loadType != 'Candidate'" class="a material-symbols-outlined text-success float-end">verified</mat-icon>
+              <input (click)="checkboxUser(q.id, a.letter)" type="checkbox" class="form-check-input"  [disabled]="!checkboxUser(q.id, a)" [checked]="checkboxUser(q.id, a)">
+              <label for="" class="py-1 form-check-label ms-1" [ngClass]="{'correct-alt': a.correct}">{{ a.letter }} {{ a.text }}</label>
+            </div>
+            </div>
           </div>
         </div>
       </div>
     </div>
-    <div *ngIf="loadType == 'Candidate'">
-      2
-    </div>
-    <div *ngIf="loadType == 'Both'">
-      2
-    </div>
-    <pre>{{ obj | json }}</pre>
   </div>
 </div>
-
-
